@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-# @created 8/31/2009
+# (c) 8/31/2009, Kevin Ha, McGill University
 #
 # Filename: Generate random reads for testing purposes
 import sys
