@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-(c) Kevin Ha, 2010
+(c) 2010, Kevin Ha, McGill University
 
 Parse a number taken from the bitwse FLAG in the SAM format and report the
 results
