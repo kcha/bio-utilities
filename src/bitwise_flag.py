@@ -59,10 +59,10 @@ print "512\t0x200\tThe read fails platform/vendor quality checks:\t\t\t",
 if (flag & 512): print "YES"
 else: print "NO"
 
-print "1028\t0x400\tThe read is either a PCR duplicate or an optical duplicate:\t",
-if (flag & 1028): print "YES"
+print "1024\t0x400\tThe read is either a PCR duplicate or an optical duplicate:\t",
+if (flag & 1024): print "YES"
 else: print "NO"
 
-print "2056\t0x800\tSupplementary alignment (e.g. chimeric alignment):\t\t",
-if (flag & 2056): print "YES"
+print "2048\t0x800\tSupplementary alignment (e.g. chimeric alignment):\t\t",
+if (flag & 2048): print "YES"
 else: print "NO"
