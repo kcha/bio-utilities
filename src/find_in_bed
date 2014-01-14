@@ -1,0 +1,10 @@
+#!/bin/bash
+#
+# Shortcut to search for BED intervals using awk
+
+FILE=$1
+CHR=$2
+START=$3
+END=$4
+
+awk -v C=$CHR -v S=$START -v E=$END '$1==C && $2 >= S && $3 <= E' $FILE
