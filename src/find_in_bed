@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 # Shortcut to search for BED intervals using awk
+# Usage: find_in_bed intervals.bed chr start end
 
 FILE=$1
 CHR=$2
