@@ -12,8 +12,8 @@ This just copies scripts from src/ folder to bin/.
 Utilities
 ---------
  * `bitwise_flag` - Describe bitwise FLAG from SAM file
- * `create_random_reads` - Naively generate random read sequences from a
- reference FASTA file (requires Biopython)
+ * `create_random_reads` - Naively generate N random sequences from a
+each record in a reference FASTA file (requires Biopython)
  * `find_in_bed` - Find intervals in a BED file given chr, start, and end
 
 Unit tests
