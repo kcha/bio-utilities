@@ -23,7 +23,7 @@ $(BIN_DIR)/find_in_bed: $(SRC_DIR)/find_in_bed
 	@cp -v $^ $@
 
 .PHONY: test
-test:
+test: $(addprefix $(BIN_DIR)/, $(APPS))
 	@cd test; sh test.sh
 
 .PHONY: clean
