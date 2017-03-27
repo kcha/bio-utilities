@@ -1,0 +1,67 @@
+#!/usr/bin/env python
+
+import sys
+import os, os.path
+import argparse
+from Bio import SeqIO
+import fileinput
+
+desc = "Split FASTA file into smaller sub-sequences"
+parser = argparse.ArgumentParser(description=desc)
+parser.add_argument('fastafile', metavar='FASTA', nargs=1,
+                    help="Input FASTA file")
+parser.add_argument('-d', metavar='DIR', type=str, default=None, dest="outdir",
+                    help="Output directory [default: same as input]")
+parser.add_argument('-n', metavar='NUM_SEQUENCES', type=int, default=1000,
+                    dest="size",
+                    help="Number of sequences to split by [%(default)s]")
+args = parser.parse_args()
+
+def batch_iterator(iterator, batch_size):
+    """Returns lists of length batch_size.
+
+    This can be used on any iterator, for example to batch up
+    SeqRecord objects from Bio.SeqIO.parse(...), or to batch
+    Alignment objects from Bio.AlignIO.parse(...), or simply
+    lines from a file handle.
+
+    This is a generator function, and it returns lists of the
+    entries from the supplied iterator.  Each list will have
+    batch_size entries, although the final list may be shorter.
+    """
+    entry = True  # Make sure we loop once
+    while entry:
+        batch = []
+        while len(batch) < batch_size:
+            try:
+                entry = iterator.next()
+            except StopIteration:
+                entry = None
+            if entry is None:
+                # End of file
+                break
+            batch.append(entry)
+        if batch:
+            yield batch
+
+
+
+record_iter = SeqIO.parse(fileinput.input(args.fastafile[0], 
+                                          openhook=fileinput.hook_compressed),
+                          "fasta")
+
+if args.outdir: 
+    try:
+        os.mkdir(args.outdir)
+    except OSError as e:
+        print >> sys.stderr, e
+else:
+    args.outdir = os.path.dirname(args.fastafile[0])
+
+for i, batch in enumerate(batch_iterator(record_iter, args.size)):
+    filename = "%s/group_%i.fasta" % (args.outdir, i + 1)
+
+    with open(filename, "w") as handle:
+        count = SeqIO.write(batch, handle, "fasta")
+    print("Wrote %i records to %s" % (count, filename))
+
